@@ -9,6 +9,7 @@
   background-color: #060a3d;
 }
 #player .header {
+  height: 100px;
   text-align: center;
 }
 #player .header h2 {
@@ -21,17 +22,14 @@
   font-size: 12px;
   padding: 10px 0;
 }
-#player .area-effect {
-  text-align: center;
-}
-#player .area-effect .balls {
+#player .header .balls {
   /*三行居中代码*/
   display: flex;
   align-items: center;
   justify-content: center;
   margin-top: 10px;
 }
-#player .area-effect .balls span {
+#player .header .balls span {
   display: inline-block;
   width: 5px;
   height: 5px;
@@ -39,59 +37,151 @@
   background-color: #6a134f;
   margin: 0 3px;
 }
-#player .area-effect .balls span.current {
+#player .header .balls span.current {
   width: 8px;
   height: 8px;
   border-radius: 50%;
   background-color: #c02390;
 }
-#player .area-effect .panel-effect .effect {
+#player .panels {
+  width: 200vw;
+  height: calc(100vh - 240px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.5s;
+}
+#player .panels.panel1 {
+  transform: translateX(0vw);
+}
+#player .panels.panel2 {
+  transform: translateX(-100vw);
+}
+#player .panels .panel-effect {
+  width: 100vw;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+#player .panels .panel-effect .effect {
   position: relative;
   display: flex;
   align-items: center;
   justify-content: center;
-  height: 60vh;
+  height: 40vh;
 }
-#player .area-effect .panel-effect .effect div {
+#player .panels .panel-effect .effect div {
   background-size: contain;
   background-repeat: no-repeat;
   position: absolute;
 }
-#player .area-effect .panel-effect .effect .effect-1 {
+#player .panels .panel-effect .effect .effect-1 {
   background-image: url(/effect-no-move.e6a51026.svg);
-  width: 70vw;
-  height: 70vw;
+  width: 75vw;
+  height: 75vw;
   animation: rotate 10s linear infinite;
 }
-#player .area-effect .panel-effect .effect .effect-2 {
+#player .panels .panel-effect .effect .effect-2 {
   background-image: url(/effect-move1.8d0ce205.svg);
   width: 65vw;
   height: 65vw;
   animation: rotate 10s linear infinite reverse;
 }
-#player .area-effect .panel-effect .effect .effect-3 {
+#player .panels .panel-effect .effect .effect-3 {
   background-image: url(/effect-move2.143040a0.svg);
   width: 20vw;
   height: 20vw;
   animation: rotate 10s linear infinite;
 }
-#player .area-effect .panel-effect .lyric p {
+#player .panels .panel-effect .lyric {
+  margin-top: 20px;
+}
+#player .panels .panel-effect .lyric p {
   color: #868aaf;
   font-size: 14px;
   padding: 5px 0;
+  text-align: center;
 }
-#player .area-effect .panel-effect .lyric p.current {
+#player .panels .panel-effect .lyric p.current {
   color: #ffffff;
 }
-#player .buttons {
+#player .panels .panel-lyrics {
+  width: 100vw;
+  height: 100%;
+  background: #060a3d;
+}
+#player .footer {
+  height: 140px;
+}
+#player .footer .buttons {
   display: flex;
   justify-content: center;
-  margin-top: 20px;
 }
-#player .buttons svg {
+#player .footer .buttons svg {
   width: 24px;
   height: 24px;
   margin: 0 20px;
+}
+#player .footer .area-bar {
+  color: #868aaf;
+  font-size: 12px;
+  display: flex;
+  padding: 0 20px;
+  margin-top: 20px;
+  align-items: center;
+}
+#player .footer .area-bar .time-start {
+  order: 1;
+  width: 40px;
+}
+#player .footer .area-bar .time-end {
+  order: 3;
+  width: 40px;
+}
+#player .footer .area-bar .bar {
+  order: 2;
+  flex: 1;
+  height: 4px;
+  background: #0025f1;
+  border-radius: 2px;
+  margin: 0 10px;
+}
+#player .footer .area-bar .bar .progress {
+  width: 30%;
+  transition: all 0.2s;
+  height: 100%;
+  border-radius: 2px;
+  background: #db3baa;
+  position: relative;
+}
+#player .footer .area-bar .bar .progress::after {
+  content: "";
+  position: absolute;
+  right: -8px;
+  top: -7px;
+  display: block;
+  width: 16px;
+  height: 16px;
+  background: url(/progress.798a5c76.svg);
+  background-repeat: no-repeat;
+  background-size: contain;
+}
+#player .footer .actions {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 20px;
+  padding: 0 20px;
+}
+#player .footer .actions svg {
+  width: 28px;
+  height: 28px;
+}
+#player .footer .actions svg.btn-play-pause {
+  width: 50px;
+  height: 50px;
 }
 
 /*svg图片旋转*/

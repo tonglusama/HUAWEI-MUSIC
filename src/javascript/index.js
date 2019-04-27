@@ -1,3 +1,3 @@
-console.log('hello 饥人谷')
+import './icons.js'
 
 console.log('带事不好啦')
