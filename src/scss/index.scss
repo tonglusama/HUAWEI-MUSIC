@@ -1,0 +1,123 @@
+$backgroundColor:#060a3d;
+$color: #ffffff;
+$color1: #868aaf;
+$color2: #db3baa;
+$color2-dark: darken($color2,10%);
+$color2-darker: darken($color2,30%);
+$color3: #0025f1;
+
+*{
+    margin: 0;
+    padding: 0;
+}
+
+#player{
+    height: 100vh;
+    background-color: $backgroundColor;
+
+    .header{
+        text-align: center;
+        h2{
+            color: $color;
+            font-size: 20px;
+            padding-top: 20px;
+        }
+        p{
+            color:$color1;
+            font-size: 12px;
+            padding: 10px 0;
+        }
+    }
+
+    .area-effect{
+        text-align: center;
+        .balls{
+            /*三行居中代码*/
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-top: 10px;
+            span{
+                display: inline-block;
+                width: 5px;
+                height: 5px;
+                border-radius: 50%;
+                background-color: $color2-darker;
+                margin: 0 3px;
+                &.current{
+                    width: 8px;
+                    height: 8px;
+                    border-radius: 50%;
+                    background-color: $color2-dark;
+                }
+            }
+        }
+        .panel-effect{
+            .effect{
+                position: relative;
+                display: flex;
+                align-items: center;
+                justify-content:center;
+                height: 60vh;
+                div{
+                    background-size: contain;
+                    background-repeat: no-repeat;
+                    position: absolute
+                }
+                .effect-1{
+                    background-image: url(../svg/effect-no-move.svg);
+                    width: 70vw;
+                    height: 70vw;
+                    animation: rotate 15s linear infinite;
+                }
+                .effect-2{
+                    background-image: url(../svg/effect-move1.svg);
+                    width: 65vw;
+                    height: 65vw;
+                    animation: rotate 10s linear infinite reverse;
+                }
+                .effect-3{
+                    background-image: url(../svg/effect-move2.svg);
+                    width: 20vw;
+                    height: 20vw;
+                    animation: rotate 5s linear infinite;
+                }
+            }
+            .lyric{
+                p{
+                    color: $color1;
+                    font-size: 14px;
+                    padding: 5px 0;
+
+                    &.current{
+                        color: $color;
+                    }
+                }
+            }
+            
+        }
+    }
+
+    .buttons{
+        display: flex;
+        justify-content: center;
+        margin-top:20px;
+
+        svg{
+            width: 24px;
+            height: 24px;
+            margin: 0 20px;
+        }
+    }
+}
+
+
+/*svg图片旋转*/
+@keyframes rotate{
+    0%{
+        transform: rotate(0);
+    }
+    100%{
+        transform: rotate(360deg);
+    }
+}

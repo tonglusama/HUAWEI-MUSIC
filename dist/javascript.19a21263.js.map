@@ -1,0 +1,1 @@
+{"version":3,"sources":["src/javascript/index.js"],"names":["console","log"],"mappings":"AAAAA,OAAO,CAACC,GAAR,CAAY,WAAZ;AAEAD,OAAO,CAACC,GAAR,CAAY,OAAZ","file":"javascript.19a21263.js","sourceRoot":"..","sourcesContent":["console.log('hello 饥人谷')\r\n\r\nconsole.log('带事不好啦')"]}

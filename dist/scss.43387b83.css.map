@@ -1,0 +1,1 @@
+{"version":3,"sources":["src\\scss\\index.scss"],"names":[],"mappings":"AAGA,KACI,WACA,OACI","file":"scss.43387b83.css","sourceRoot":"..","sourcesContent":["$color: blue;\r\n$color2: gray;\r\n\r\nbody{\r\n    color: $color;\r\n    p{\r\n        color: $color2;\r\n    }\r\n}"]}

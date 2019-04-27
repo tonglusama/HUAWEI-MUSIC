@@ -1,0 +1,107 @@
+@charset "UTF-8";
+* {
+  margin: 0;
+  padding: 0;
+}
+
+#player {
+  height: 100vh;
+  background-color: #060a3d;
+}
+#player .header {
+  text-align: center;
+}
+#player .header h2 {
+  color: #ffffff;
+  font-size: 20px;
+  padding-top: 20px;
+}
+#player .header p {
+  color: #868aaf;
+  font-size: 12px;
+  padding: 10px 0;
+}
+#player .area-effect {
+  text-align: center;
+}
+#player .area-effect .balls {
+  /*三行居中代码*/
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 10px;
+}
+#player .area-effect .balls span {
+  display: inline-block;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background-color: #6a134f;
+  margin: 0 3px;
+}
+#player .area-effect .balls span.current {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background-color: #c02390;
+}
+#player .area-effect .panel-effect .effect {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 60vh;
+}
+#player .area-effect .panel-effect .effect div {
+  background-size: contain;
+  background-repeat: no-repeat;
+  position: absolute;
+}
+#player .area-effect .panel-effect .effect .effect-1 {
+  background-image: url(/effect-no-move.e6a51026.svg);
+  width: 70vw;
+  height: 70vw;
+  animation: rotate 15s linear infinite;
+}
+#player .area-effect .panel-effect .effect .effect-2 {
+  background-image: url(/effect-move1.8d0ce205.svg);
+  width: 65vw;
+  height: 65vw;
+  animation: rotate 10s linear infinite reverse;
+}
+#player .area-effect .panel-effect .effect .effect-3 {
+  background-image: url(/effect-move2.143040a0.svg);
+  width: 20vw;
+  height: 20vw;
+  animation: rotate 5s linear infinite;
+}
+#player .area-effect .panel-effect .lyric p {
+  color: #868aaf;
+  font-size: 14px;
+  padding: 5px 0;
+}
+#player .area-effect .panel-effect .lyric p.current {
+  color: #ffffff;
+}
+#player .buttons {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}
+#player .buttons svg {
+  width: 24px;
+  height: 24px;
+  margin: 0 20px;
+}
+
+/*svg图片旋转*/
+@keyframes rotate {
+  0% {
+    transform: rotate(0);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+/*# sourceMappingURL=/scss.8c25d549.css.map */

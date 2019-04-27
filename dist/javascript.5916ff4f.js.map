@@ -1,0 +1,1 @@
+{"version":3,"sources":["src/javascript/index.js"],"names":["console","log"],"mappings":";AAAAA,QAAQC,IAAI,aAEZD,QAAQC,IAAI","file":"javascript.5916ff4f.js","sourceRoot":"..","sourcesContent":["console.log('hello 饥人谷')\r\n\r\nconsole.log('带事不好啦')"]}
