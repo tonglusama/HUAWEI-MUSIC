@@ -1,4 +1,5 @@
-import './icons.js'
+import './icons.js'     //导入图标
+import Swiper from './swiper.js'    //导入手势库
 
 console.log('带事不好啦')
 
@@ -6,19 +7,20 @@ console.log('带事不好啦')
 //     return document.querySelector(selector)
 //}
 
-const $ = selector => document.querySelector(selector)  // 一个 $ 符表示选择一个,就是一个函数
-const $$ = selector => document.querySelectorAll(selector)   // 两个 $$ 符表示选择全部
+// const $ = selector => document.querySelector(selector)  // 一个 $ 符表示选择一个,就是一个函数
+// const $$ = selector => document.querySelectorAll(selector)   // 两个 $$ 符表示选择全部
 
 class Player {
     constructor(node) {
-        this.root = typeof node === 'string' ? $(node) : node;    //传入的 root 是否是 string 类型，如果是的话就选择当前 node节点
+        this.root = typeof node === 'string' ? document.querySelector(node) : node;    //传入的 root 是否是 string 类型，如果是的话就选择当前 node节点
+        this.$ = selector => this.root.querySelector(selector)    //用 $ 代替 root.querySelector ，让代码看上去更简洁
+        this.$$ = selector => this.root.querySelectorAll(selector) //用 $$ 代替 root.querySelectorAll
         this.songList = []  //音乐歌单
         this.currentIndex = 0  //播放的音乐下标，根据下标确定播放哪一首
         this.audio = new Audio()
         //理论上是 start() 后已经可以正常播放的，但目前浏览器把自动播放禁掉了，手机上更不可能，所以需要创建一个 audio 对象来绑定对象后再进行播放
         this.start()    //播放器开始，看到这个 start 就运行
         this.bind()     //在 bind 内绑定按钮，实现上一首下一首的功能
-
     }
 
     start() {   //播放器开启
@@ -29,15 +31,15 @@ class Player {
             .then(data => {         //这个 data 里面存好了歌单
                 console.log(data)
                 this.songList = data    //把 data 内的歌单存入到 songList 内
+                this.renderSong()
             })
-
     }
 
     bind() {    //绑定按钮，让按钮有实际功能
 
         //播放暂停
         let self = this //一开始就让你等于 this
-        this.root.querySelector('.btn-play-pause').onclick = function () {
+        this.$('.btn-play-pause').onclick = function () {
             //播放的歌曲是 songList 内下标为 currentIndex 的歌曲
             //因为是在 bind 里面绑定的，并且要 click 才会触发，所以放在这里
             self.audio.src = self.songList[self.currentIndex].url
@@ -59,34 +61,57 @@ class Player {
         }
 
         //上一曲
-        this.root.querySelector('.btn-pre').onclick = function () {
+        this.$('.btn-pre').onclick = function () {
             self.playPrevSong()
         }
 
         //下一曲
-        this.root.querySelector('.btn-next').onclick = function () {
+        this.$('.btn-next').onclick = function () {
             self.playNextSong()
         }
+
+        //手势库，控制歌词整页和图标之间的滑动
+        let swiper = new Swiper(this.$('.panels'))   //创建一个 swiper 对象要控制 panels
+        swiper.on('swipLeft', function () {  //左滑
+            this.classList.remove('panel1')
+            this.classList.add('panel2')
+            console.log(this)
+        })
+        swiper.on('swipRight', function () {  //右滑
+            this.classList.remove('panel2')
+            this.classList.add('panel1')
+        })
+    }
+
+    renderSong(){   //加载音乐的时候再去获取到歌词和歌名等，所以多一个加载音乐步骤
+        let songObj = this.songList[this.currentIndex]  //获取歌曲信息
+        this.$('.header h1').innerText = songObj.title  //歌名
+        this.$('.header p').innerText = songObj.author + '-' + songObj.albumn //作者 + 专辑
+        this.audio.src = songObj.url
+        this.loadLyrics()   //加载歌词
     }
 
     playPrevSong() {    //播放上一首歌曲
         console.log(this.audio)
         this.currentIndex = (this.songList.length + this.currentIndex - 1) % this.songList.length //这个是别人想出来的，记下来就好了
         this.audio.src = this.songList[this.currentIndex].url   //播放上一首
-        this.audio.play()
+        this.audio.oncanplaythrough = () => this.audio.play()   //可以播放的时候再播放，有时候因为网速的原因可能没有及时加载出来
     }
 
     playNextSong() {    //播放下一首歌曲，与上一首是一样的
         console.log(this.audio)
-        this.currentIndex = (this.songList.length + this.currentIndex + 1) % this.songList.length
+        this.currentIndex = (this.currentIndex + 1) % this.songList.length
         this.audio.src = this.songList[this.currentIndex].url
-        this.audio.play()
+        this.audio.oncanplaythrough = () => this.audio.play()
     }
 
-    playSong() {    //播放音乐
-
-        this.audio.play()   //调用 play 方法播放当前歌曲
+    loadLyrics() {
+        fetch(this.songList[this.currentIndex].lyric)  //获取当前歌词
+            .then(res => res.json())
+            .then(data => {     //这个 data 里面存了歌词
+                console.log(data)
+            })
     }
 }
 
-new Player('#player')
+window.p = new Player('#player')

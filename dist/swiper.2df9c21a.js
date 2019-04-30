@@ -117,79 +117,130 @@ parcelRequire = (function (modules, cache, entry, globalName) {
   }
 
   return newRequire;
-})({"../../../AppData/Roaming/npm-cache/_npx/7088/node_modules/parcel/src/builtins/bundle-url.js":[function(require,module,exports) {
-var bundleURL = null;
+})({"src/javascript/swiper.js":[function(require,module,exports) {
+"use strict";
 
-function getBundleURLCached() {
-  if (!bundleURL) {
-    bundleURL = getBundleURL();
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+/*
+let Swiper = (function(){
+  let root = document
+  let eventHub = {'swipLeft': [], 'swipRight': []}
+  function bind(node) {
+    root = node
   }
-
-  return bundleURL;
-}
-
-function getBundleURL() {
-  // Attempt to find the URL of the current script and use that as the base URL
-  try {
-    throw new Error();
-  } catch (err) {
-    var matches = ('' + err.stack).match(/(https?|file|ftp|chrome-extension|moz-extension):\/\/[^)\n]+/g);
-
-    if (matches) {
-      return getBaseURL(matches[0]);
+  function on(type, fn) {
+    if(eventHub[type]) {
+      eventHub[type].push(fn)
     }
   }
+  
+  var initX
+  var newX
+  var clock
+  root.ontouchstart = function(e) {
+    initX = e.changedTouches[0].pageX 
+  }
+  root.ontouchmove  = function(e) {
+    if(clock) clearInterval(clock)
+    clock = setTimeout(()=>{
+      newX = e.changedTouches[0].pageX
+      if(newX - initX > 0) {
+        eventHub['swipRight'].forEach(fn=>fn())
+      } else {
+        eventHub['swipLeft'].forEach(fn=>fn())
+      }  
+    }, 100)
+  }
+  return {
+    bind: bind,
+    on: on
+  }
+})()
+Swiper.bind(document.querySelector('#box'))
+Swiper.on('swipLeft', function() {
+  console.log('swipLeft')
+})
+Swiper.on('swipLeft', function() {
+  console.log('swipLeft 111')
+})
+Swiper.on('swipRight', function() {
+  console.log('swipRight')
+})
+Swiper.on('swipRight', function() {
+  console.log('swipRight 222')
+})
+*/
+var Swiper = function Swiper(node) {
+  _classCallCheck(this, Swiper);
 
-  return '/';
-}
+  if (!node) throw new Error('需要传递需要绑定的DOM元素');
+  var root = typeof node === 'string' ? document.querySelector(node) : node;
+  var eventHub = {
+    'swipLeft': [],
+    'swipRight': []
+  };
+  var initX;
+  var newX;
+  var clock;
 
-function getBaseURL(url) {
-  return ('' + url).replace(/^((?:https?|file|ftp|chrome-extension|moz-extension):\/\/.+)\/[^/]+$/, '$1') + '/';
-}
-
-exports.getBundleURL = getBundleURLCached;
-exports.getBaseURL = getBaseURL;
-},{}],"../../../AppData/Roaming/npm-cache/_npx/7088/node_modules/parcel/src/builtins/css-loader.js":[function(require,module,exports) {
-var bundle = require('./bundle-url');
-
-function updateLink(link) {
-  var newLink = link.cloneNode();
-
-  newLink.onload = function () {
-    link.remove();
+  root.ontouchstart = function (e) {
+    initX = e.changedTouches[0].pageX;
   };
 
-  newLink.href = link.href.split('?')[0] + '?' + Date.now();
-  link.parentNode.insertBefore(newLink, link.nextSibling);
-}
+  root.ontouchmove = function (e) {
+    if (clock) clearInterval(clock);
+    clock = setTimeout(function () {
+      newX = e.changedTouches[0].pageX;
 
-var cssTimeout = null;
-
-function reloadCSS() {
-  if (cssTimeout) {
-    return;
-  }
-
-  cssTimeout = setTimeout(function () {
-    var links = document.querySelectorAll('link[rel="stylesheet"]');
-
-    for (var i = 0; i < links.length; i++) {
-      if (bundle.getBaseURL(links[i].href) === bundle.getBundleURL()) {
-        updateLink(links[i]);
+      if (newX - initX > 50) {
+        eventHub['swipRight'].forEach(function (fn) {
+          return fn.bind(root)();
+        });
+      } else if (initX - newX > 50) {
+        eventHub['swipLeft'].forEach(function (fn) {
+          return fn.bind(root)();
+        });
       }
+    }, 100);
+  };
+
+  this.on = function (type, fn) {
+    if (eventHub[type]) {
+      eventHub[type].push(fn);
     }
+  };
 
-    cssTimeout = null;
-  }, 50);
-}
+  this.off = function (type, fn) {
+    var index = eventHub[type].indexOf(fn);
 
-module.exports = reloadCSS;
-},{"./bundle-url":"../../../AppData/Roaming/npm-cache/_npx/7088/node_modules/parcel/src/builtins/bundle-url.js"}],"src/scss/index.scss":[function(require,module,exports) {
-var reloadCSS = require('_css_loader');
+    if (index !== -1) {
+      eventHub[type].splice(index, 1);
+    }
+  };
+};
+/*
+let swiper = new Swiper('#box')
+swiper.on('swipLeft', ()=>{
+  console.log('left')
+})
+swiper.on('swipRight', ()=>{
+  console.log('right')
+})
+let onLeft = () => console.log('left 2')
+swiper.on('swipLeft', onLeft)
+swiper.off('swipLeft', onLeft)
+*/
 
-module.hot.dispose(reloadCSS);
-module.hot.accept(reloadCSS);
-},{"./..\\svg\\effect-no-move.svg":[["effect-no-move.e6a51026.svg","src/svg/effect-no-move.svg"],"src/svg/effect-no-move.svg"],"./..\\svg\\effect-move1.svg":[["effect-move1.8d0ce205.svg","src/svg/effect-move1.svg"],"src/svg/effect-move1.svg"],"./..\\svg\\effect-move2.svg":[["effect-move2.143040a0.svg","src/svg/effect-move2.svg"],"src/svg/effect-move2.svg"],"./..\\svg\\progress.svg":[["progress.798a5c76.svg","src/svg/progress.svg"],"src/svg/progress.svg"],"_css_loader":"../../../AppData/Roaming/npm-cache/_npx/7088/node_modules/parcel/src/builtins/css-loader.js"}],"../../../AppData/Roaming/npm-cache/_npx/30460/node_modules/parcel/src/builtins/hmr-runtime.js":[function(require,module,exports) {
+
+var _default = Swiper;
+exports.default = _default;
+},{}],"../../../AppData/Roaming/npm-cache/_npx/2680/node_modules/parcel/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
 var OldModule = module.bundle.Module;
@@ -217,7 +268,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "14060" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "7384" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
@@ -392,5 +443,5 @@ function hmrAcceptRun(bundle, id) {
     return true;
   }
 }
-},{}]},{},["../../../AppData/Roaming/npm-cache/_npx/30460/node_modules/parcel/src/builtins/hmr-runtime.js"], null)
-//# sourceMappingURL=/scss.8c25d549.js.map
+},{}]},{},["../../../AppData/Roaming/npm-cache/_npx/2680/node_modules/parcel/src/builtins/hmr-runtime.js","src/javascript/swiper.js"], null)
+//# sourceMappingURL=/swiper.2df9c21a.js.map
