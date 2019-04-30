@@ -120,7 +120,22 @@ $color3: #0025f1;
         .panel-lyrics{
             width: 100vw;
             height: 100%;
-            background: $backgroundColor;
+            text-align:center;
+            line-height: 2;
+            overflow: hidden;
+
+            .container{
+                transition: all 0.5s;
+                transform: translateY(-100px);
+                p{
+                    font-size: 16px;
+                    color: $color1;
+    
+                    &.current{
+                        color: $color;
+                    }
+                }
+            }
         }
     }
 

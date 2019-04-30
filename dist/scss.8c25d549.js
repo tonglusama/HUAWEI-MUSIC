@@ -117,7 +117,7 @@ parcelRequire = (function (modules, cache, entry, globalName) {
   }
 
   return newRequire;
-})({"../../../AppData/Roaming/npm-cache/_npx/7088/node_modules/parcel/src/builtins/bundle-url.js":[function(require,module,exports) {
+})({"../../../AppData/Roaming/npm-cache/_npx/30460/node_modules/parcel/src/builtins/bundle-url.js":[function(require,module,exports) {
 var bundleURL = null;
 
 function getBundleURLCached() {
@@ -149,7 +149,7 @@ function getBaseURL(url) {
 
 exports.getBundleURL = getBundleURLCached;
 exports.getBaseURL = getBaseURL;
-},{}],"../../../AppData/Roaming/npm-cache/_npx/7088/node_modules/parcel/src/builtins/css-loader.js":[function(require,module,exports) {
+},{}],"../../../AppData/Roaming/npm-cache/_npx/30460/node_modules/parcel/src/builtins/css-loader.js":[function(require,module,exports) {
 var bundle = require('./bundle-url');
 
 function updateLink(link) {
@@ -184,12 +184,12 @@ function reloadCSS() {
 }
 
 module.exports = reloadCSS;
-},{"./bundle-url":"../../../AppData/Roaming/npm-cache/_npx/7088/node_modules/parcel/src/builtins/bundle-url.js"}],"src/scss/index.scss":[function(require,module,exports) {
+},{"./bundle-url":"../../../AppData/Roaming/npm-cache/_npx/30460/node_modules/parcel/src/builtins/bundle-url.js"}],"src/scss/index.scss":[function(require,module,exports) {
 var reloadCSS = require('_css_loader');
 
 module.hot.dispose(reloadCSS);
 module.hot.accept(reloadCSS);
-},{"./..\\svg\\effect-no-move.svg":[["effect-no-move.e6a51026.svg","src/svg/effect-no-move.svg"],"src/svg/effect-no-move.svg"],"./..\\svg\\effect-move1.svg":[["effect-move1.8d0ce205.svg","src/svg/effect-move1.svg"],"src/svg/effect-move1.svg"],"./..\\svg\\effect-move2.svg":[["effect-move2.143040a0.svg","src/svg/effect-move2.svg"],"src/svg/effect-move2.svg"],"./..\\svg\\progress.svg":[["progress.798a5c76.svg","src/svg/progress.svg"],"src/svg/progress.svg"],"_css_loader":"../../../AppData/Roaming/npm-cache/_npx/7088/node_modules/parcel/src/builtins/css-loader.js"}],"../../../AppData/Roaming/npm-cache/_npx/30460/node_modules/parcel/src/builtins/hmr-runtime.js":[function(require,module,exports) {
+},{"./..\\svg\\effect-no-move.svg":[["effect-no-move.e6a51026.svg","src/svg/effect-no-move.svg"],"src/svg/effect-no-move.svg"],"./..\\svg\\effect-move1.svg":[["effect-move1.8d0ce205.svg","src/svg/effect-move1.svg"],"src/svg/effect-move1.svg"],"./..\\svg\\effect-move2.svg":[["effect-move2.143040a0.svg","src/svg/effect-move2.svg"],"src/svg/effect-move2.svg"],"./..\\svg\\progress.svg":[["progress.798a5c76.svg","src/svg/progress.svg"],"src/svg/progress.svg"],"_css_loader":"../../../AppData/Roaming/npm-cache/_npx/30460/node_modules/parcel/src/builtins/css-loader.js"}],"../../../AppData/Roaming/npm-cache/_npx/30460/node_modules/parcel/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
 var OldModule = module.bundle.Module;

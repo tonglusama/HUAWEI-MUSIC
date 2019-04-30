@@ -75,7 +75,6 @@ class Player {
         swiper.on('swipLeft', function () {  //左滑
             this.classList.remove('panel1')
             this.classList.add('panel2')
-            console.log(this)
         })
         swiper.on('swipRight', function () {  //右滑
             this.classList.remove('panel2')
@@ -85,9 +84,11 @@ class Player {
 
     renderSong(){   //加载音乐的时候再去获取到歌词和歌名等，所以多一个加载音乐步骤
         let songObj = this.songList[this.currentIndex]  //获取歌曲信息
-        this.$('.header h1').innerText = songObj.title  //歌名
+        console.log(this)
+        this.$('.header h2').innerText = songObj.title  //歌名
         this.$('.header p').innerText = songObj.author + '-' + songObj.albumn //作者 + 专辑
-        this.audio.src = songObj.url
+        this.audio.src = this.songList[this.currentIndex].url
+        
         this.loadLyrics()   //加载歌词
     }
 
@@ -109,7 +110,7 @@ class Player {
         fetch(this.songList[this.currentIndex].lyric)  //获取当前歌词
             .then(res => res.json())
             .then(data => {     //这个 data 里面存了歌词
-                console.log(data)
+                console.log(data.lrc.lyric)
             })
     }
 }
