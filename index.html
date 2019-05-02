@@ -1,85 +1,87 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link rel="stylesheet" href="./src/scss/index.scss">
-    <title>华为音乐</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>华为音乐</title>
+  <link rel="stylesheet" href="src/scss/index.scss">
 </head>
-
 <body>
-    <div id="player">
-
-
-        <!--头部固定高度-->
-        <div class="header">
-            <h2>有些事···</h2>
-            <p>五月天 - 第二人生(末日版)</p>
-            <div class="balls">
-                    <span class="current"></span>
-                    <span></span>
-                </div>
-
+  <div id="player">
+    <div class="header">
+      <h1>有些事现在不做一辈子</h1>
+      <p>五月天-第二人生</p>
+      <div class="balls">
+        <span class="current"></span>
+        <span></span>
+      </div>
+    </div>
+    <div class="panels panel1">
+      <div class="panel-effect">
+        <div class="effect">
+          <div class="effect-1"></div>
+          <div class="effect-2"></div>
+          <div class="effect-3"></div>
+        </div>
+        <div class="lyric">
+          <p class="current">那么你和人们的不同就看你怎么活</p>
+          <p>想象你等白发</p>
+        </div>
+      </div>
+      <div class="panel-lyrics">
+        <div class="container">
+          <!--
+          <p>1那么你和人们的不同就看你怎么活</p>
+          <p>2想象你等白发</p>
+          <p>3那么你和人们的不同就看你怎么活</p>
+          <p>4想象你等白发</p>
+          <p class="">5那么你和人们的不同就看你怎么活</p>
+          <p>6想象你等白发</p>
+          <p>7那么你和人们的不同就看你怎么活</p>
+          <p>8想象你等白发</p>
+          <p>9那么你和人们的不同就看你怎么活</p>
+          <p>10想象你等白发</p>
+          <p class="current">11那么你和人们的不同就看你怎么活</p>
+          <p>12想象你等白发</p>
+          <p>12那么你和人们的不同就看你怎么活</p>
+          <p>14想象你等白发</p>
+          <p>15那么你和人们的不同就看你怎么活</p>
+          <p>16想象你等白发</p>
+          <p class="">17那么你和人们的不同就看你怎么活</p>
+          <p>18想象你等白发</p>  
+          -->        
         </div>
 
-
-        <!--中间可变高度 = 手机屏幕高度 - 头部固定高度 - 底部固定高度-->
-        <div class="panels panel1">
-                <div class="panel-effect">
-                    <div class="effect">
-                        <div class="effect-1"></div>
-                        <div class="effect-2"></div>
-                        <div class="effect-3"></div>
-                    </div>
-                    <div class="lyric">
-                        <p class="current">明知这是一场意外 你会不会来</p>
-                        <p>明知这是一种伤害 你会不会爱</p>
-                    </div>
-                </div>
-                <div class="panel-lyrics">
-                    <div class="container">
-                        <p>明知这是一场意外 你会不会来</p>
-                        <p>明知这是一种伤害 你会不会爱</p>
-                        <p>明知这是一场意外 你会不会来</p>
-                        <p class="current">明知这是一种伤害 你会不会爱</p>
-                        <p>明知这是一场意外 你会不会来</p>
-                        <p>明知这是一种伤害 你会不会爱</p>
-                    </div>
-                </div>
-        </div>
-
-
-        <!--底部固定高度-->
-        <div class="footer">
-            <div class="buttons">
-                    <svg class="btn-like"><use xlink:href="#icon-like"/></svg>
-                    <svg class="btn-download"><use xlink:href="#icon-download"/></svg>
-                    <svg class="btn-share"><use xlink:href="#icon-share"/></svg>
-                    <svg class="btn-comment"><use xlink:href="#icon-comment"/></svg>
-                    <svg class="btn-more"><use xlink:href="#icon-more"/></svg>
-            </div>
-            <div class="area-bar">
-                    <span class="time-start">00:00</span>
-                    <span class="time-end">00:00</span>
-                    <div class="bar">
-                        <div class="progress"></div>
-                    </div>
-            </div>
-            <div class="actions">
-                        <svg class="btn-order" xmlns:xlink="http://www.w3.org/1999/xlink"  aria-hidden="true"><use xlink:href="#icon-circle"/></svg>
-                        <svg class="btn-pre" xmlns:xlink="http://www.w3.org/1999/xlink"  aria-hidden="true"><use xlink:href="#icon-pre"/></svg>
-                        <svg class="btn-play-pause pause" xmlns:xlink="http://www.w3.org/1999/xlink"  aria-hidden="true"><use xlink:href="#icon-play"/></svg>
-                        <svg class="btn-next" xmlns:xlink="http://www.w3.org/1999/xlink"  aria-hidden="true"><use xlink:href="#icon-next"/></svg>
-                        <svg class="btn-music-list" xmlns:xlink="http://www.w3.org/1999/xlink"  aria-hidden="true"><use xlink:href="#icon-list"/></svg>
-            </div>
-        </div>
+      </div>
+    </div>
+    <div class="footer">
+      <div class="buttons">
+        <svg class="btn-like" xmlns:xlink="http://www.w3.org/1999/xlink"  aria-hidden="true"><use xlink:href="#icon-like"/></svg>
+        <svg class="btn-download" xmlns:xlink="http://www.w3.org/1999/xlink"  aria-hidden="true"><use xlink:href="#icon-download"/></svg>
+        <svg class="btn-share" xmlns:xlink="http://www.w3.org/1999/xlink"  aria-hidden="true"><use xlink:href="#icon-share"/></svg>
+        <svg class="btn-comment" xmlns:xlink="http://www.w3.org/1999/xlink"  aria-hidden="true"><use xlink:href="#icon-comment"/></svg>
+    </div>
+    <div class="bar-area">
+      <span class="time-start">00:00</span>
+      <span class="time-end">00:00</span>
+      <div class="bar">
+        <div class="progress"></div>
+      </div>
+    </div>
+    <div class="actions">
+      <svg class="btn-order" xmlns:xlink="http://www.w3.org/1999/xlink"  aria-hidden="true"><use xlink:href="#icon-circle"/></svg>
+      <svg class="btn-pre" xmlns:xlink="http://www.w3.org/1999/xlink"  aria-hidden="true"><use xlink:href="#icon-pre"/></svg>
+      <svg class="btn-play-pause pause" xmlns:xlink="http://www.w3.org/1999/xlink"  aria-hidden="true"><use xlink:href="#icon-play"/></svg>
+      <svg class="btn-next" xmlns:xlink="http://www.w3.org/1999/xlink"  aria-hidden="true"><use xlink:href="#icon-next"/></svg>
+      <svg class="btn-music-list" xmlns:xlink="http://www.w3.org/1999/xlink"  aria-hidden="true"><use xlink:href="#icon-list"/></svg>
+    </div>
     </div>
 
-    <script src="./src/javascript/index.js"></script>
+  </div>
+
+  <script src="src/javascript/index.js"></script>  
+  
 
 </body>
-
-
 </html>

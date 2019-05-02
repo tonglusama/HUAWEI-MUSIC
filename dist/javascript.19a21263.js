@@ -298,6 +298,8 @@ function () {
 
     this.audio = new Audio(); //理论上是 start() 后已经可以正常播放的，但目前浏览器把自动播放禁掉了，手机上更不可能，所以需要创建一个 audio 对象来绑定对象后再进行播放
 
+    this.lyricsArr = [];
+    this.lyricIndex = -1;
     this.start(); //播放器开始，看到这个 start 就运行
 
     this.bind(); //在 bind 内绑定按钮，实现上一首下一首的功能
@@ -319,7 +321,7 @@ function () {
         console.log(data);
         _this2.songList = data; //把 data 内的歌单存入到 songList 内
 
-        _this2.renderSong();
+        _this2.loadSong();
       });
     }
   }, {
@@ -330,10 +332,7 @@ function () {
       var self = this; //一开始就让你等于 this
 
       this.$('.btn-play-pause').onclick = function () {
-        //播放的歌曲是 songList 内下标为 currentIndex 的歌曲
-        //因为是在 bind 里面绑定的，并且要 click 才会触发，所以放在这里
-        self.audio.src = self.songList[self.currentIndex].url; //做判断，点击播放，在点击暂停
-
+        //做判断，点击播放，在点击暂停
         if (this.classList.contains('playing')) {
           self.audio.pause(); //播放暂停
 
@@ -354,12 +353,23 @@ function () {
 
 
       this.$('.btn-pre').onclick = function () {
-        self.playPrevSong();
+        self.currentIndex = (self.songList.length + self.currentIndex - 1) % self.songList.length;
+        self.loadSong();
+        self.playSong();
       }; //下一曲
 
 
       this.$('.btn-next').onclick = function () {
-        self.playNextSong();
+        self.currentIndex = (self.currentIndex + 1) % self.songList.length;
+        self.loadSong();
+        self.playSong();
+      }; //准时更新歌词和作者
+
+
+      this.audio.ontimeupdate = function () {
+        console.log(parseInt(self.audio.currentTime * 1000));
+        self.locateLyric();
+        self.setProgerssBar();
       }; //手势库，控制歌词整页和图标之间的滑动
 
 
@@ -377,44 +387,31 @@ function () {
       });
     }
   }, {
-    key: "renderSong",
-    value: function renderSong() {
+    key: "loadSong",
+    value: function loadSong() {
+      var _this3 = this;
+
       //加载音乐的时候再去获取到歌词和歌名等，所以多一个加载音乐步骤
       var songObj = this.songList[this.currentIndex]; //获取歌曲信息
 
       console.log(this);
-      this.$('.header h2').innerText = songObj.title; //歌名
+      this.$('.header h1').innerText = songObj.title; //歌名
 
       this.$('.header p').innerText = songObj.author + '-' + songObj.albumn; //作者 + 专辑
 
-      this.audio.src = this.songList[this.currentIndex].url;
+      this.audio.src = songObj.url; //获取歌曲
+
+      this.audio.onloadedmetadata = function () {
+        return _this3.$('.time-end').innerText = _this3.formateTime(_this3.audio.duration);
+      }; //获取总时长duration，用formateTime进行格式化后，作为innerTex方法到 onloadedmetadata 中
+
+
       this.loadLyrics(); //加载歌词
     }
   }, {
-    key: "playPrevSong",
-    value: function playPrevSong() {
-      var _this3 = this;
-
-      //播放上一首歌曲
-      console.log(this.audio);
-      this.currentIndex = (this.songList.length + this.currentIndex - 1) % this.songList.length; //这个是别人想出来的，记下来就好了
-
-      this.audio.src = this.songList[this.currentIndex].url; //播放上一首
-
-      this.audio.oncanplaythrough = function () {
-        return _this3.audio.play();
-      }; //可以播放的时候再播放，有时候因为网速的原因可能没有及时加载出来
-
-    }
-  }, {
-    key: "playNextSong",
-    value: function playNextSong() {
+    key: "playSong",
+    value: function playSong() {
       var _this4 = this;
-
-      //播放下一首歌曲，与上一首是一样的
-      console.log(this.audio);
-      this.currentIndex = (this.currentIndex + 1) % this.songList.length;
-      this.audio.src = this.songList[this.currentIndex].url;
 
       this.audio.oncanplaythrough = function () {
         return _this4.audio.play();
@@ -423,21 +420,110 @@ function () {
   }, {
     key: "loadLyrics",
     value: function loadLyrics() {
+      var _this5 = this;
+
+      //加载歌词
       fetch(this.songList[this.currentIndex].lyric) //获取当前歌词
       .then(function (res) {
         return res.json();
       }).then(function (data) {
         //这个 data 里面存了歌词
         console.log(data.lrc.lyric);
+
+        _this5.setLyrics(data.lrc.lyric); //处理歌词
+
+
+        window.lyrics = data.lrc.lyric;
       });
+    }
+  }, {
+    key: "locateLyric",
+    value: function locateLyric() {
+      console.log('locateLyric');
+      var currentTime = this.audio.currentTime * 1000;
+      var nextLineTime = this.lyricsArr[this.lyricIndex + 1][0];
+
+      if (currentTime > nextLineTime && this.lyricIndex < this.lyricsArr.length - 1) {
+        this.lyricIndex++;
+        var node = this.$('[data-time="' + this.lyricsArr[this.lyricIndex][0] + '"]');
+        if (node) this.setLyricToCenter(node);
+        this.$$('.panel-effect .lyric p')[0].innerText = this.lyricsArr[this.lyricIndex][1];
+        this.$$('.panel-effect .lyric p')[1].innerText = this.lyricsArr[this.lyricIndex + 1] ? this.lyricsArr[this.lyricIndex + 1][1] : '';
+      }
+    }
+  }, {
+    key: "setLyrics",
+    value: function setLyrics(lyrics) {
+      //歌词滚动
+      this.lyricIndex = 0;
+      var fragment = document.createDocumentFragment();
+      var lyricsArr = [];
+      this.lyricsArr = lyricsArr;
+      lyrics.split(/\n/).filter(function (str) {
+        return str.match(/\[.+?\]/);
+      }).forEach(function (line) {
+        var str = line.replace(/\[.+?\]/g, '');
+        line.match(/\[.+?\]/g).forEach(function (t) {
+          t = t.replace(/[\[\]]/g, '');
+          var milliseconds = parseInt(t.slice(0, 2)) * 60 * 1000 + parseInt(t.slice(3, 5)) * 1000 + parseInt(t.slice(6));
+          lyricsArr.push([milliseconds, str]);
+        });
+      });
+      lyricsArr.filter(function (line) {
+        return line[1].trim() !== '';
+      }).sort(function (v1, v2) {
+        if (v1[0] > v2[0]) {
+          return 1;
+        } else {
+          return -1;
+        }
+      }).forEach(function (line) {
+        var node = document.createElement('p');
+        node.setAttribute('data-time', line[0]);
+        node.innerText = line[1];
+        fragment.appendChild(node);
+      });
+      this.$('.panel-lyrics .container').innerHTML = '';
+      this.$('.panel-lyrics .container').appendChild(fragment);
+    }
+  }, {
+    key: "setLyricToCenter",
+    value: function setLyricToCenter(node) {
+      console.log(node);
+      var translateY = node.offsetTop - this.$('.panel-lyrics').offsetHeight / 2;
+      translateY = translateY > 0 ? translateY : 0;
+      this.$('.panel-lyrics .container').style.transform = "translateY(-".concat(translateY, "px)");
+      this.$$('.panel-lyrics p').forEach(function (node) {
+        return node.classList.remove('current');
+      });
+      node.classList.add('current');
+    }
+  }, {
+    key: "setProgerssBar",
+    value: function setProgerssBar() {
+      console.log('set setProgerssBar');
+      var percent = this.audio.currentTime * 100 / this.audio.duration + '%';
+      console.log(percent);
+      this.$('.bar .progress').style.width = percent;
+      this.$('.time-start').innerText = this.formateTime(this.audio.currentTime);
+      console.log(this.$('.bar .progress').style.width);
+    }
+  }, {
+    key: "formateTime",
+    value: function formateTime(secondsTotal) {
+      var minutes = parseInt(secondsTotal / 60);
+      minutes = minutes >= 10 ? '' + minutes : '0' + minutes;
+      var seconds = parseInt(secondsTotal % 60);
+      seconds = seconds >= 10 ? '' + seconds : '0' + seconds;
+      return minutes + ':' + seconds;
     }
   }]);
 
   return Player;
 }();
 
-window.p = new Player('#player');
-},{"./icons.js":"src/javascript/icons.js","./swiper.js":"src/javascript/swiper.js"}],"../../../AppData/Roaming/npm-cache/_npx/30460/node_modules/parcel/src/builtins/hmr-runtime.js":[function(require,module,exports) {
+window.Player = new Player('#player');
+},{"./icons.js":"src/javascript/icons.js","./swiper.js":"src/javascript/swiper.js"}],"../../../AppData/Roaming/npm-cache/_npx/26192/node_modules/parcel/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
 var OldModule = module.bundle.Module;
@@ -465,7 +551,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "14060" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "10349" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
@@ -640,5 +726,5 @@ function hmrAcceptRun(bundle, id) {
     return true;
   }
 }
-},{}]},{},["../../../AppData/Roaming/npm-cache/_npx/30460/node_modules/parcel/src/builtins/hmr-runtime.js","src/javascript/index.js"], null)
+},{}]},{},["../../../AppData/Roaming/npm-cache/_npx/26192/node_modules/parcel/src/builtins/hmr-runtime.js","src/javascript/index.js"], null)
 //# sourceMappingURL=/javascript.19a21263.js.map
