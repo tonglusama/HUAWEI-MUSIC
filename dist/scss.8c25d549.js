@@ -189,7 +189,7 @@ var reloadCSS = require('_css_loader');
 
 module.hot.dispose(reloadCSS);
 module.hot.accept(reloadCSS);
-},{"./..\\svg\\effect-no-move.svg":[["effect-no-move.e6a51026.svg","src/svg/effect-no-move.svg"],"src/svg/effect-no-move.svg"],"./..\\svg\\effect-move1.svg":[["effect-move1.8d0ce205.svg","src/svg/effect-move1.svg"],"src/svg/effect-move1.svg"],"./..\\svg\\effect-move2.svg":[["effect-move2.143040a0.svg","src/svg/effect-move2.svg"],"src/svg/effect-move2.svg"],"./..\\svg\\progress.svg":[["progress.798a5c76.svg","src/svg/progress.svg"],"src/svg/progress.svg"],"_css_loader":"../../../AppData/Roaming/npm-cache/_npx/26192/node_modules/parcel/src/builtins/css-loader.js"}],"../../../AppData/Roaming/npm-cache/_npx/12756/node_modules/parcel/src/builtins/hmr-runtime.js":[function(require,module,exports) {
+},{"./..\\svg\\effect-no-move.svg":[["effect-no-move.e6a51026.svg","src/svg/effect-no-move.svg"],"src/svg/effect-no-move.svg"],"./..\\svg\\effect-move1.svg":[["effect-move1.8d0ce205.svg","src/svg/effect-move1.svg"],"src/svg/effect-move1.svg"],"./..\\svg\\effect-move2.svg":[["effect-move2.143040a0.svg","src/svg/effect-move2.svg"],"src/svg/effect-move2.svg"],"./..\\svg\\progress.svg":[["progress.798a5c76.svg","src/svg/progress.svg"],"src/svg/progress.svg"],"_css_loader":"../../../AppData/Roaming/npm-cache/_npx/26192/node_modules/parcel/src/builtins/css-loader.js"}],"../../../AppData/Roaming/npm-cache/_npx/19704/node_modules/parcel/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
 var OldModule = module.bundle.Module;
@@ -217,7 +217,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "5629" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "7493" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
@@ -392,5 +392,5 @@ function hmrAcceptRun(bundle, id) {
     return true;
   }
 }
-},{}]},{},["../../../AppData/Roaming/npm-cache/_npx/12756/node_modules/parcel/src/builtins/hmr-runtime.js"], null)
+},{}]},{},["../../../AppData/Roaming/npm-cache/_npx/19704/node_modules/parcel/src/builtins/hmr-runtime.js"], null)
 //# sourceMappingURL=/scss.8c25d549.js.map
