@@ -72,19 +72,19 @@
   position: absolute;
 }
 #player .panels .panel-effect .effect .effect-1 {
-  background: url(/effect-no-move.e6a51026.svg) 0 0 no-repeat;
+  background: url(./effect-no-move.e6a51026.svg) 0 0 no-repeat;
   width: 70vw;
   height: 70vw;
   animation: rotate 20s linear infinite;
 }
 #player .panels .panel-effect .effect .effect-2 {
-  background: url(/effect-move1.8d0ce205.svg) 0 0 no-repeat;
+  background: url(./effect-move1.8d0ce205.svg) 0 0 no-repeat;
   width: 60vw;
   height: 60vw;
   animation: rotate 10s linear infinite reverse;
 }
 #player .panels .panel-effect .effect .effect-3 {
-  background: url(/effect-move2.143040a0.svg) 0 0 no-repeat;
+  background: url(./effect-move2.143040a0.svg) 0 0 no-repeat;
   width: 24vw;
   height: 24vw;
   animation: rotate 10s linear infinite;
